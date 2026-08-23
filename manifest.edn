@@ -1,0 +1,40 @@
+;; teigen 提言 — actor manifest
+;; 事業者自身の声で、命令等・運用に残る書面・収入印紙・出頭の要件の見直しを求める。
+;; 判断（誰に何を求めるか）は kotoba-lang/shomen、経路・起草・governor はここ。
+{:actor/id        "teigen"
+ :actor/glyph     "提"
+ :actor/tier      :tier-b
+ :actor/domain    "teigen.itonami.cloud"
+ :actor/did       "did:web:itonami.cloud:actor:teigen"
+ :actor/purpose   "Operator-principal advocacy: turns a shomen :ask-* classification into a cited, governed, self-submitted proposal to the ministry / administration (意見公募・規制改革ホットライン・運用要望)."
+ :actor/status    :r0
+ :actor/adr       "2608232400"
+ :actor/related   ["2608232400" "2605312400"]
+ :actor/depends   [{:repo "kotoba-lang/shomen" :why "route / advocacy / remaining-analog — the judgement about what is still on paper and who can change it"}]
+ :actor/siblings  [{:repo "cloud-itonami/moushibumi" :boundary "市民本人の声（請願・パブコメ・選挙情報）。teigen は事業者自身の声で、請願は出さない"}
+                   {:repo "cloud-itonami/hikyaku" :boundary "同じ shomen entry の interim（繋ぎ）側。teigen は提言側"}]
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "principal-is-operator"   :gate/rule "提出者は actor を運用する事業者自身。第三者のための提出（lobbying-for-hire）をしない"}
+  {:gate/id "G2"  :gate/name "consent"                 :gate/rule "事業者の DID 署名付き同意（scope :teigen/submit）"}
+  {:gate/id "G3"  :gate/name "verified-entry-only"     :gate/rule "live 提出は :maintainer-verified 以上の shomen entry から。seed は dry-run まで"}
+  {:gate/id "G4"  :gate/name "ask-routes-only"         :gate/rule ":ask-ministry / :ask-administration / :ask-legislature だけ。:electronic-now は求めるものが無く、:unverified は調べていない"}
+  {:gate/id "G5"  :gate/name "channel-open-and-lawful" :gate/rule "意見公募は案件と期間が要る。請願は teigen から出さない（moushibumi / 人間）"}
+  {:gate/id "G6"  :gate/name "citations-match-entry"   :gate/rule "本文の根拠が entry の根拠と一致する。entry に無い条文を引かない"}
+  {:gate/id "G7"  :gate/name "non-partisan"            :gate/rule "政党・投票・候補者への言及を含む本文は出さない"}
+  {:gate/id "G8"  :gate/name "no-pii-in-body"          :gate/rule "本文に連絡先・個人番号を書かない。連絡先は sealed field"}
+  {:gate/id "G9"  :gate/name "dedupe"                  :gate/rule "同じ entry × 経路 × 案件を二重に出さない"}
+  {:gate/id "G10" :gate/name "first-live-needs-human"  :gate/rule "事業者がある経路を初めて使う live 提出は人間の署名待ち"}]
+ :actor/cells
+ [{:cell/id "gap_intake"  :cell/kind :pure :cell/ns "shomen.classify"  :cell/note "shomen の :ask-* を受ける。teigen 自身は分類しない"}
+  {:cell/id "compose"     :cell/kind :pure :cell/ns "teigen.compose"   :cell/note "決定論的起草。LLM 無し。citations は entry から"}
+  {:cell/id "governor"    :cell/kind :pure :cell/ns "teigen.governor"  :cell/note "G1–G10。:allow / :deny / :hold"}
+  {:cell/id "submit"      :cell/kind :effect :cell/ns "teigen.actor"   :cell/note "唯一の outbound。[:submit/live …] は governor :allow のときだけ現れる"}
+  {:cell/id "status_track" :cell/kind :event :cell/ns "teigen.actor"   :cell/note "受理番号・§43 の『考え方』公示を台帳に積む"}]
+ :actor/effects  [:ledger/append :submit/dry-run :submit/live :human/sign-off :refuse]
+ :actor/non-goals
+ ["NOT lobbying-for-hire（他社・団体の代わりに出さない）"
+  "NOT a party / PAC / campaign（非党派・非商業の言論ではなく、事業者の規制負担に関する要望）"
+  "NOT 請願の提出者（紹介議員を要する請願は moushibumi か人間）"
+  "NOT a ranking of ministries or officials（求めるのは要件の見直しであって評価ではない）"
+  "NOT an LLM writer at R0（本文は entry の事実から決定論的に組む）"]
+ :actor/runtime  {:first :nbb :tests "nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.cljs"}}
