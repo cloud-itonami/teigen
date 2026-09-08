@@ -2,5 +2,10 @@
 ;; 判断は shomen（kotoba-lang）に依存する。テストの第一経路は nbb:
 ;;   nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.cljs
 {:paths ["src"]
- :deps {io.github.kotoba-lang/shomen {:local/root "../../kotoba-lang/shomen"}}
+ :deps {
+        ;; kotoba.lang.text, not clojure.string. Pinned as an explicit floor:
+        ;; tools.deps takes the NEWEST sha it is shown, so without a floor here
+        ;; this repo silently rides whatever a sibling happens to name.
+        io.github.kotoba-lang/text {:git/sha "73bdb13ae7a3d004b44bca08be03a3191157a38f"}
+       io.github.kotoba-lang/shomen {:local/root "../../kotoba-lang/shomen"}}
  :aliases {:test {:extra-paths ["test"]}}}

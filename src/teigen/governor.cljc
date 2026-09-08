@@ -16,7 +16,7 @@
   | G8 no-pii         | 本文にメールアドレス・電話番号・個人番号を書かない（連絡先は sealed field） |
   | G9 dedupe         | 同じ entry × 経路 × 案件を二重に出さない |
   | G10 first-time    | ある事業者がある経路を**初めて**使う提出は人間の署名待ち（`:hold`） |"
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [teigen.channels :as ch]
             [shomen.classify :as c]))
 
