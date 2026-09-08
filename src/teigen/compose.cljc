@@ -9,7 +9,7 @@
 
   LLM で文を整えたいときは、この出力を入力にして**本文を書き換えさせず**、
   言い回しだけを変える段を後ろに足す（そのときも citations は動かさない）。"
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [shomen.classify :as c]))
 
 (def ^:private ask-by-route

@@ -1,6 +1,6 @@
 (ns teigen.actor-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [shomen.catalog :as cat]
             [teigen.actor :as a]
             [teigen.channels :as ch]
