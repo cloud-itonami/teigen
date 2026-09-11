@@ -1,5 +1,5 @@
 ;; nbb テストエントリ。
-;;   nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.cljs
+;;   kbb --backend sci --classpath src:test:../../kotoba-lang/shomen/src run_tests.cljs
 (ns run-tests
   (:require [cljs.test :as t]
             [teigen.actor-test]))
