@@ -1,6 +1,6 @@
 ;; teigen (提言) — 事業者自身の声で、命令等・運用の書面/印紙要件の見直しを求める governed actor。
 ;; 判断は shomen（kotoba-lang）に依存する。テストの第一経路は nbb:
-;;   nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba
+;;   kbb --backend sci --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba
 {:paths ["src"]
  :deps {
         ;; kotoba.lang.text, not clojure.string. Pinned as an explicit floor:

@@ -10,7 +10,7 @@
 である。
 
 ```bash
-nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba   # 10 tests / 42 assertions
+kbb --backend sci --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba   # 10 tests / 42 assertions
 ```
 
 ## moushibumi との境界（ここが一番大事）

@@ -37,4 +37,4 @@
   "NOT 請願の提出者（紹介議員を要する請願は moushibumi か人間）"
   "NOT a ranking of ministries or officials（求めるのは要件の見直しであって評価ではない）"
   "NOT an LLM writer at R0（本文は entry の事実から決定論的に組む）"]
- :actor/runtime  {:first :nbb :tests "nbb --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba"}}
+ :actor/runtime  {:first :nbb :tests "kbb --backend sci --classpath src:test:../../kotoba-lang/shomen/src run_tests.kotoba"}}
